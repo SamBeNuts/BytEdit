@@ -4,7 +4,7 @@
 [Cahier des charges](https://docs.google.com/document/d/1uxTQMVv9ph9IEeWgpVHvYmsOsaD4I77LnrPwGH6l7eU/edit?usp=sharing)
 
 ## Règles à suivre
-> Vouloir battre les 2 Juliens (et tous les autres au passage), ensuite vous pourrez lire la suite.
+> Vouloir battre les 2 Juliens (et tous les autres au passage), ensuite vous pouvez lire la suite.
 
 - Respecter la syntaxe
 - Prendre le temps de commenter vos lignes de code
