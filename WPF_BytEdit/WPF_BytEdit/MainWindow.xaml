@@ -1,0 +1,25 @@
+﻿<Window x:Name="home" x:Class="WPF_BytEdit.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_BytEdit"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="341" Width="450" ResizeMode="NoResize" Foreground="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" WindowStartupLocation="CenterScreen" Icon="images/icon_bytedit.ico" BorderThickness="40" AllowsTransparency="True" WindowStyle="None" KeyDown="Window_KeyDown" MouseLeftButtonDown="home_MouseLeftButtonDown">
+    <Window.Effect>
+        <DropShadowEffect Direction="0" ShadowDepth="0" BlurRadius="40"/>
+    </Window.Effect>
+    <Window.Background>
+        <ImageBrush ImageSource="images/bg_transparent.png"/>
+    </Window.Background>
+    <Canvas HorizontalAlignment="Center" Height="260" Margin="0" VerticalAlignment="Bottom" Width="370">
+        <Image x:Name="close_png" Height="20" Canvas.Left="345" Source="images/close.png" Stretch="Fill" Canvas.Top="235" Width="20" VerticalAlignment="Center" HorizontalAlignment="Center" Cursor="Hand" MouseDown="close_png_MouseDown"/>
+        <Rectangle Height="48" Canvas.Left="65" Stroke="#FFEFEFEF" Canvas.Top="190" Width="240" StrokeThickness="4" RadiusX="24" RadiusY="24"/>
+        <Image x:Name="logo_BytEdit_png" Canvas.Left="85" Source="images/logo_BytEdit.png" Stretch="Fill" Canvas.Top="145" Width="200"/>
+        <Label x:Name="sign_label" Content="CRÉER UN COMPTE" Canvas.Top="240" ScrollViewer.VerticalScrollBarVisibility="Disabled" FontSize="13.333" FontWeight="Bold" Cursor="Hand" Foreground="#FFEFEFEF" Panel.ZIndex="100" Width="250" Height="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Canvas.Left="60" MouseDown="sign_label_MouseDown"/>
+        <Image x:Name="next_icon_png" Canvas.Left="261" Source="images/next_icon.png" Stretch="Fill" Canvas.Top="193" Height="42" Cursor="Hand" MouseDown="next_icon_png_MouseDown" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="textbox" Height="40" Canvas.Left="82" Canvas.Top="192" Width="177" BorderBrush="{x:Null}" SelectionBrush="White" Foreground="#FFEFEFEF" Background="{x:Null}" FontSize="18.667" FontWeight="Bold" VerticalContentAlignment="Center" TabIndex="1" Cursor="IBeam" IsHitTestVisible="True" AllowDrop="False" SelectionOpacity="1" MaxLength="20" TextChanged="textBox_TextChanged" BorderThickness="0" MaxLines="1" Typography.Capitals="SmallCaps"/>
+        <PasswordBox x:Name="passwordbox" Height="40" Canvas.Left="82" Canvas.Top="192" Width="177" BorderBrush="{x:Null}" SelectionBrush="White" Foreground="#FFEFEFEF" Background="{x:Null}" FontSize="18.667" FontWeight="Bold" VerticalContentAlignment="Center" TabIndex="1" Cursor="IBeam" IsHitTestVisible="True" AllowDrop="False" SelectionOpacity="1" MaxLength="20" BorderThickness="0" Visibility="Hidden" PasswordChanged="passwordbox_PasswordChanged"/>
+        <Label x:Name="placeholder" Content="Identifiant" Canvas.Left="85" Canvas.Top="192" Width="135" Foreground="#FF999999" FontSize="18.667" FontWeight="Bold" Padding="0" VerticalContentAlignment="Center" IsHitTestVisible="False" Height="40" Typography.Capitals="SmallCaps"/>
+    </Canvas>
+</Window>
