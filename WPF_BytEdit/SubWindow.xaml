@@ -1,0 +1,401 @@
+﻿<Window x:Name="bytedit" x:Class="WPF_BytEdit.SubWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_BytEdit"
+        mc:Ignorable="d"
+        Title="SubWindow" WindowStyle="None" Foreground="{x:Null}" Background="{x:Null}" Icon="images/icon_bytedit.ico" WindowState="Maximized" ScrollViewer.VerticalScrollBarVisibility="Disabled" MouseLeftButtonDown="move_window">
+    <Grid ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="board" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="#FFEFEFEF">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="top_panel" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Image x:Name="minimize_btn_dash" Source="images/minimize_btn.png" Height="20" Grid.Column="4" Cursor="Hand" MouseDown="minimize_window"/>
+                <Image x:Name="maximize_btn_dash" Source="images/normal_btn.png" Height="20" Grid.Column="5" Cursor="Hand" MouseDown="maximize_window"/>
+                <Image x:Name="close_btn_dash" Source="images/close_btn.png" Height="20" Grid.Column="6" MouseDown="close_window" Cursor="Hand"/>
+                <Image x:Name="bytedit_logo" Source="images/bytedit_logo_dashboard.png" Height="50" Grid.Row="1" Cursor="Hand" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0,0" MouseDown="go_to_editor"/>
+                <Rectangle Height="50" Grid.Column="1" Grid.Row="1" Width="350" RadiusX="25" RadiusY="25" StrokeThickness="5" Stroke="#FF1A1A1A"/>
+                <Label x:Name="search" Content="Rechercher" Grid.Column="1" Grid.Row="1" Foreground="#FFAFAFAF" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="-210,0,0,0" Padding="0"/>
+                <Ellipse Height="70" Width="70" Grid.Column="3" Grid.ColumnSpan="4" Grid.Row="1" Margin="0,0,10,3" HorizontalAlignment="Right" Cursor="Hand" MouseDown="Call_Disconnect">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="images/pdp_default.png"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </Grid>
+            <DockPanel x:Name="project_view" Grid.Row="1" Grid.RowSpan="2" LastChildFill="False">
+                <Grid Background="#FF1A1A1A" Height="50" DockPanel.Dock="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="images/project_icon_yellow.png" Height="40"/>
+                    <Label Content="Mes projets" Typography.Capitals="SmallCaps" Grid.Column="1" Foreground="#FFEFEFEF" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" Padding="0"/>
+                    <Image Source="images/add_icon.png" Height="30" Grid.Column="2" Cursor="Hand" MouseDown="Open_Project_Creation"/>
+                </Grid>
+                <StackPanel x:Name="project_list" DockPanel.Dock="Top" Cursor="Hand"/>
+                <Grid Background="#FF1A1A1A" Height="50" DockPanel.Dock="Bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Atom" Typography.Capitals="SmallCaps" Foreground="#FFEFEFEF" FontSize="22" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0" Padding="0"/>
+                    <Image Source="images/refuse_icon.png" Height="30" Grid.Column="1" Cursor="Hand"/>
+                    <Image Source="images/accept_icon.png" Height="30" Grid.Column="2" Cursor="Hand"/>
+                </Grid>
+                <Rectangle Height="1" Fill="#FFFFCC00" DockPanel.Dock="Bottom"/>
+                <Grid Background="#FF1A1A1A" Height="50" DockPanel.Dock="Bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Nutts.io" Typography.Capitals="SmallCaps" Foreground="#FFEFEFEF" FontSize="22" FontWeight="Bold" VerticalAlignment="Center" Margin="10,0,0,0" Padding="0"/>
+                    <Image Source="images/refuse_icon.png" Height="30" Grid.Column="1" Cursor="Hand"/>
+                    <Image Source="images/accept_icon.png" Height="30" Grid.Column="2" Cursor="Hand"/>
+                </Grid>
+            </DockPanel>
+            <Grid x:Name="file_view" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Visibility="Hidden">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="48"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1"/>
+                </Grid.ColumnDefinitions>
+                <Rectangle Fill="#FFFFCC00" Grid.ColumnSpan="3"/>
+                <Rectangle Fill="#FFDFDFDF" Grid.Row="1" Grid.RowSpan="3"/>
+                <Rectangle Fill="#FFDFDFDF" Grid.Column="2" Grid.Row="1" Grid.RowSpan="3"/>
+                <Grid Grid.Column="1" Grid.Row="1" Height="50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="images/download_icon_black.png" Height="30" Grid.Column="0" Cursor="Hand"/>
+                    <Image Source="images/share_icon.png" Height="30" Grid.Column="1" Cursor="Hand"/>
+                    <Image x:Name="cm_add_folder_file" Source="images/add_icon_grey.png" Height="30" Grid.Column="2" Cursor="Hand" MouseDown="ContextMenuLeftClick">
+                        <Image.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Créer dossier" Click="MenuItem_Folder_Click"/>
+                                <MenuItem Header="Créer fichier" Click="MenuItem_File_Click"/>
+                            </ContextMenu>
+                        </Image.ContextMenu>
+                    </Image>
+                </Grid>
+                <TreeView FontSize="15" FontWeight="Bold" Typography.Capitals="SmallCaps" Background="{x:Null}" BorderThickness="0" Grid.Column="1" Grid.Row="2">
+                    <TreeView.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                			Color="#FFAFAFAF" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"
+                			Color="Black" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                			Color="#FFAFAFAF" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
+                			Color="Black" />
+                    </TreeView.Resources>
+                    <TreeViewItem Header="Header Files" IsExpanded="True" Typography.Capitals="Normal" Foreground="#FF1A1A1A" >
+                        <TreeViewItem FontWeight="Light" Header="tipe.h" Foreground="#FF1A1A1A"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Source Files" IsExpanded="True" Foreground="#FF1A1A1A">
+                        <TreeViewItem Header="main.cpp" FontWeight="Light" Typography.Capitals="Normal" Foreground="#FF1A1A1A"/>
+                        <TreeViewItem Header="tipe.cpp" FontWeight="Light" Typography.Capitals="Normal" Foreground="#FF1A1A1A"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Ressource Files" IsExpanded="False" Foreground="#FF1A1A1A">
+                        <TreeViewItem Header="rt.png" FontWeight="Light" Typography.Capitals="Normal" Foreground="#FF1A1A1A"/>
+                    </TreeViewItem>
+                </TreeView>
+                <Image Source="images/go_edit_icon.png" Height="55"  Grid.Column="1" Grid.Row="3" Cursor="Hand"/>
+            </Grid>
+            <Canvas x:Name="timeline" Grid.Column="2" Grid.Row="1" Background="#FF1A1A1A"/>
+            <Grid x:Name="main" Grid.Column="2" Grid.Row="2"/>
+            <Grid x:Name="project_creation_box" Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Rectangle Grid.ColumnSpan="3" Grid.RowSpan="3" Opacity="0.5" Fill="Black"/>
+                <Grid Background="#FFEFEFEF" Grid.Column="1" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                        <Label Content="Titre du projet :" Foreground="#FF1A1A1A" FontSize="18" Margin="10,-10,0,0" Padding="0" FontWeight="Bold" Typography.Capitals="SmallCaps" VerticalAlignment="Center"/>
+                        <TextBox x:Name="name_project" TextWrapping="NoWrap" Text="" MaxLength="50" Background="{x:Null}" SelectionBrush="#FFAFAFAF" BorderBrush="#FF1A1A1A" BorderThickness="3" Margin="10,0,10,0" FontWeight="Light" FontSize="15"/>
+                        <Label Content="Description :" Foreground="#FF1A1A1A" FontSize="18" Margin="10,5,0,0" Padding="0" FontWeight="Bold" Typography.Capitals="SmallCaps" VerticalAlignment="Center"/>
+                        <TextBox x:Name="description_project" MaxHeight="80" Height="80" TextWrapping="Wrap" Text="" MaxLength="300" Background="{x:Null}" SelectionBrush="#FFAFAFAF" BorderBrush="#FF1A1A1A" BorderThickness="3" Margin="10,0,10,0" VerticalScrollBarVisibility="Visible" FontWeight="Light" FontSize="15"/>
+                        <Label Content="Mode de partage :" Foreground="#FF1A1A1A" FontSize="18" Margin="10,5,0,0" Padding="0" FontWeight="Bold" Typography.Capitals="SmallCaps" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="share_mode" Margin="10,0,10,0" FontWeight="Light" FontSize="15">
+                            <ComboBoxItem IsSelected="True">Public</ComboBoxItem>
+                            <ComboBoxItem>Utilisateurs avec la clé</ComboBoxItem>
+                            <ComboBoxItem>Privé</ComboBoxItem>
+                        </ComboBox>
+                        <Image Source="images/accept_icon.png" Height="40" Margin="0,10" Cursor="Hand" MouseDown="Create_Project"/>
+                    </StackPanel>
+                    <Image Source="images/close_btn.png" Height="20" Grid.Column="1" Cursor="Hand" MouseDown="CloseProjectCreation"/>
+                </Grid>
+            </Grid>
+            <Grid x:Name="file_creation_box" Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Rectangle Grid.ColumnSpan="3" Grid.RowSpan="3" Opacity="0.5" Fill="Black"/>
+                <Grid Background="#FFEFEFEF" Grid.Column="1" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                        <Label Content="Nom du fichier :" Foreground="#FF1A1A1A" FontSize="18" Margin="10,-10,0,0" Padding="0" FontWeight="Bold" Typography.Capitals="SmallCaps" VerticalAlignment="Center"/>
+                        <TextBox x:Name="name_file" TextWrapping="NoWrap" Text="" MaxLength="50" Background="{x:Null}" SelectionBrush="#FFAFAFAF" BorderBrush="#FF1A1A1A" BorderThickness="3" Margin="10,0,10,0" FontWeight="Light" FontSize="15"/>
+                        <Label Content="Dossier parent :" Foreground="#FF1A1A1A" FontSize="18" Margin="10,5,0,0" Padding="0" FontWeight="Bold" Typography.Capitals="SmallCaps" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="folder" Margin="10,0,10,0" FontWeight="Light" FontSize="15">
+                        </ComboBox>
+                        <Image Source="images/accept_icon.png" Height="40" Margin="0,10" Cursor="Hand" MouseDown="Create_File"/>
+                    </StackPanel>
+                    <Image Source="images/close_btn.png" Height="20" Grid.Column="1" Cursor="Hand" MouseDown="CloseFileCreation"/>
+                </Grid>
+            </Grid>
+            <Grid x:Name="folder_creation_box" Grid.ColumnSpan="3" Grid.RowSpan="3" Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Rectangle Grid.ColumnSpan="3" Grid.RowSpan="3" Opacity="0.5" Fill="Black"/>
+                <Grid Background="#FFEFEFEF" Grid.Column="1" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                        <Label Content="Nom du dossier :" Foreground="#FF1A1A1A" FontSize="18" Margin="10,-10,0,0" Padding="0" FontWeight="Bold" Typography.Capitals="SmallCaps" VerticalAlignment="Center"/>
+                        <TextBox x:Name="name_folder" TextWrapping="NoWrap" Text="" MaxLength="50" Background="{x:Null}" SelectionBrush="#FFAFAFAF" BorderBrush="#FF1A1A1A" BorderThickness="3" Margin="10,0,10,0" FontWeight="Light" FontSize="15"/>
+                        <Label Content="Dossier parent :" Foreground="#FF1A1A1A" FontSize="18" Margin="10,5,0,0" Padding="0" FontWeight="Bold" Typography.Capitals="SmallCaps" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="folder2" Margin="10,0,10,0" FontWeight="Light" FontSize="15">
+                        </ComboBox>
+                        <Image Source="images/accept_icon.png" Height="40" Margin="0,10" Cursor="Hand" MouseDown="Create_Folder"/>
+                    </StackPanel>
+                    <Image Source="images/close_btn.png" Height="20" Grid.Column="1" Cursor="Hand" MouseDown="CloseFolderCreation"/>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid x:Name="edit" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="#FF1A1A1A" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="25" />
+                <ColumnDefinition Width="25" />
+                <ColumnDefinition Width="25" />
+                <ColumnDefinition Width="5" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <GridSplitter x:Name="gridSplitter" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" Width="2" Background="#FF1A1A1A" Foreground="#FF333333"/>
+            <Image x:Name="close_btn_png" Grid.Column="5" Grid.Row="0" Source="images/close_btn.png" Height="20" Width="20" MouseDown="back_to_board" Cursor="Hand"/>
+            <Image x:Name="maximize_btn_png" Grid.Column="4" Height="20" Width="20" Grid.Row="0" Source="images/normal_btn.png" MouseDown="maximize_window" Cursor="Hand"/>
+            <Image x:Name="minimize_btn_png" Grid.Column="3" Height="20" Width="20" Grid.Row="0" Source="images/minimize_btn.png" Stretch="Fill" MouseDown="minimize_window" Cursor="Hand"/>
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="4" Margin="0,0,30,0">
+                <Image x:Name="icon_bytedit_png" Source="images/icon_bytedit.png" Margin="10,0,0,0" Height="20" MouseDown="back_to_board" Cursor="Hand"/>
+                <Rectangle Fill="#FF333333" Height="25" Margin="10,0,0,0" Width="3"/>
+                <StackPanel x:Name="fichier_panel" Orientation="Horizontal" Cursor="Hand" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave">
+                    <Image x:Name="file_icon_png" Source="images/file_icon.png" Margin="10,0,0,0" Height="20"/>
+                    <Label x:Name="fichier" Content="Fichier" Foreground="#FFEFEFEF" FontSize="20" Margin="5,0,10,0" Padding="0" FontWeight="Light" Typography.Capitals="SmallCaps" VerticalAlignment="Center"/>
+                </StackPanel>
+                <Rectangle Fill="#FF333333" Height="25" Margin="0" Width="3" />
+                <Image x:Name="edit_icon_png" Source="images/edit_icon.png" Margin="10,0,0,0" Height="20"/>
+                <Label x:Name="edition" Content="Edition" Foreground="#FFEFEFEF" FontSize="20" Margin="5,0,0,0" Padding="0" FontWeight="Light" Typography.Capitals="SmallCaps" VerticalAlignment="Center"/>
+                <Rectangle Fill="#FF333333" Height="25" Margin="10,0,0,0" Width="3" />
+                <Image x:Name="view_icon_png" Source="images/view_icon.png" Margin="10,0,0,0" Height="20"/>
+                <Label x:Name="view" Content="Affichage" Foreground="#FFEFEFEF" FontSize="20" Margin="5,0,0,0" Padding="0" FontWeight="Light" Typography.Capitals="SmallCaps" VerticalAlignment="Center"/>
+                <Rectangle Fill="#FF333333" Height="25" Margin="10,0,0,0" Width="3" />
+                <Image x:Name="settings_icon_png" Source="images/settings_icon.png" Margin="10,0,0,0" Height="20"/>
+                <Label x:Name="param" Content="Paramètres" Foreground="#FFEFEFEF" FontSize="20" Margin="5,0,0,0" Padding="0" FontWeight="Light" Typography.Capitals="SmallCaps" VerticalAlignment="Center"/>
+                <Rectangle Fill="#FF333333" Height="25" Margin="10,0,0,0" Width="3" />
+                <Image x:Name="comment_icon_png" Source="images/comment_icon.png" Margin="10,0,0,0" Height="20"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,4.4,-0.2">
+                <Grid Background="#FF333333" Height="30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="30"/>
+                    </Grid.ColumnDefinitions>
+                    <Image x:Name="project_icon_png" Source="images/project_icon.png" Height="20"/>
+                    <Label x:Name="project_name" Content="Tipe" Foreground="#FFEFEFEF" FontSize="22" Margin="0" Padding="0,0,0,0" FontWeight="Bold" Typography.Capitals="SmallCaps" VerticalAlignment="Center" Grid.Column="1"/>
+                    <Image x:Name="add_icon_png" Source="images/add_icon.png" Height="20" Grid.Column="2" Cursor="Hand"/>
+                </Grid>
+                <TreeView Margin="0,5,0,0" FontSize="15" FontWeight="Bold" Typography.Capitals="SmallCaps" Background="{x:Null}" BorderThickness="0">
+                    <TreeView.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                    		Color="#FF333333" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"
+                    		Color="Black" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                    		Color="#FF333333" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
+                    		Color="Black" />
+                    </TreeView.Resources>
+                    <TreeViewItem Header="Header Files" IsExpanded="True" Typography.Capitals="Normal" Foreground="#FFEFEFEF" >
+                        <TreeViewItem FontWeight="Light" Header="tipe.h" Foreground="#FFEFEFEF"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Source Files" IsExpanded="True" Foreground="#FFEFEFEF">
+                        <TreeViewItem Header="main.cpp" FontWeight="Light" Typography.Capitals="Normal" Foreground="#FFEFEFEF"/>
+                        <TreeViewItem Header="tipe.cpp" FontWeight="Light" Typography.Capitals="Normal" Foreground="#FFEFEFEF"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Ressource Files" IsExpanded="False" Foreground="#FFEFEFEF">
+                        <TreeViewItem Header="rt.png" FontWeight="Light" Typography.Capitals="Normal" Foreground="#FFEFEFEF"/>
+                    </TreeViewItem>
+                </TreeView>
+            </StackPanel>
+            <TabControl Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="6" TabStripPlacement="Top" FontSize="15" FontWeight="Light" Background="#FF333333" Foreground="#FFEFEFEF" BorderThickness="0" Padding="0" Grid.IsSharedSizeScope="True" Margin="4.4,0,4.6,-0.2">
+                <TabControl.Resources>
+                    <Style TargetType="{x:Type TabItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TabItem}">
+                                    <Border x:Name="Onglet" CornerRadius="0,15,0,0" Margin="0" BorderThickness="5,0,0,0" BorderBrush="#FFFFCC00" Padding="0">
+                                        <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="0"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Onglet" Property="Background" Value="#FF333333"/>
+                                            <Setter Property="BorderBrush" Value="#FFFFCC00"/>
+                                            <Setter Property="Foreground" Value="#FFEFEFEF"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="False">
+                                            <Setter TargetName="Onglet" Property="Background" Value="#FF1A1A1A" />
+                                            <Setter Property="Foreground" Value="#FFEFEFEF"/>
+                                            <Setter Property="BorderThickness" Value="0,0,0,0"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabControl.Resources>
+                <TabItem Height="30" Width="200" Header="main.cpp">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <RichTextBox x:Name="richTextBox1" Grid.Column="2" Grid.Row="0" Background="{x:Null}" BorderThickness="0" SelectionBrush="#FF1A1A1A" FontFamily="Fira Mono" Foreground="#FFEFEFEF">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Run Text=""/>
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                        <Grid Grid.Row="1" Grid.ColumnSpan="3" Background="#FF1A1A1A">
+                            <StatusBar HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="100" Background="{x:Null}" Foreground="#FF333333">
+                                <StatusBarItem>
+                                    <TextBlock x:Name="lblCursorPosition1" />
+                                </StatusBarItem>
+                            </StatusBar>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <TabItem Width="200" Header="tipe.h">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <RichTextBox x:Name="richTextBox2" Grid.Column="2" Grid.Row="0" Background="{x:Null}" BorderThickness="0" SelectionBrush="#FF1A1A1A" FontFamily="Fira Mono" Foreground="#FFEFEFEF">
+                            <FlowDocument>
+                                <Paragraph>
+                                    <Run Text=""/>
+                                </Paragraph>
+                            </FlowDocument>
+                        </RichTextBox>
+                        <Grid Grid.Row="1" Grid.ColumnSpan="3" Background="#FF1A1A1A">
+                            <StatusBar HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="100" Background="{x:Null}" Foreground="#FF333333">
+                                <StatusBarItem>
+                                    <TextBlock x:Name="lblCursorPosition2" />
+                                </StatusBarItem>
+                            </StatusBar>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>
