@@ -15,7 +15,7 @@
 Règles à suivre pour initialiser la base de données :
 1. Installer un serveur MySQL sur votre PC (par exemple celui inclut dans [WampServer](http://www.wampserver.com/), même si là nous n'utiliserons pas le dixième des services fournis)
 2. Une fois installé, créer une base de données `bytedit` dans phpmyadmin avec `utf8_unicode_ci` comme interclassement
-3. [Téléchargez ce fichier](https://drive.google.com/uc?authuser=0&id=1MeRYsX1JfWlvuPtKI1MOBM5E4BxO8QB5&export=downloa)
+3. [Téléchargez ce fichier](https://drive.google.com/uc?id=1MeRYsX1JfWlvuPtKI1MOBM5E4BxO8QB5&export=download)
 4. Une fois le fichier téléchargé, allez dans votre base de données et cliquez sur `Importer`, puis choisissez le fichier `bytedit.sql` et faites `exécuter`
 5. Vérifiez maintenant que votre identifiant est `root` et que votre mot de passe est vide (que vous n'avez pas de mot de passe)
 6. Votre base de données est maintenant opérationnelle
