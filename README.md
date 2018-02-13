@@ -17,7 +17,22 @@ Règles à suivre pour initialiser la base de données :
 2. Une fois installé, créer une base de données `bytedit` dans phpmyadmin avec `utf8_unicode_ci` comme interclassement
 3. [Téléchargez ce fichier](https://drive.google.com/uc?id=1MeRYsX1JfWlvuPtKI1MOBM5E4BxO8QB5&export=download)
 4. Une fois le fichier téléchargé, allez dans votre base de données et cliquez sur `Importer`, puis choisissez le fichier `bytedit.sql` et faites `exécuter`
-5. Vérifiez maintenant que votre identifiant est `root` et que votre mot de passe est vide (que vous n'avez pas de mot de passe)
+5. Il vous reste à créer et configurer le fichier `db` dans le dossier `WPF_BytEdit`, pour cela vous pouvez procéder de 2 manières :
+* Méthode 1 - Créer un fichier `db` et y écrire les données suivantes (sans faire d'espaces, seulement des sauts de ligne) :
+```php
+server=/*id de votre serveur*/
+database=/*nom de la base de donnée (bytedit si vous n'avez pas modifié le fichier téléchargé à l'étape 3)*/
+uid=/*votre identifiant*/
+password=/*votre mot de passe*/
+```
+* Méthode 2 - Placer ces lignes de code avant la déclaration de la variable `connectionString` de la classe `App` du fichier `App.xaml.cs` lors et seulement lors de la première génération du projet :
+```php
+WriteData("db","server","/*id de votre serveur*/");
+WriteData("db","database","/*nom de la base de donnée (bytedit si vous n'avez pas modifié le fichier téléchargé à l'étape 3)*/");
+WriteData("db","uid","/*votre identifiant*/");
+WriteData("db","password","/*votre mot de passe*/");
+```
+> Les commentaires `/*commentaire*/` sont bien évidemment à remplacer par vos informations personnelles.
 6. Votre base de données est maintenant opérationnelle
 
 #### Contact
