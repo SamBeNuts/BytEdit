@@ -51,7 +51,7 @@ namespace WPF_BytEdit
             try
             {
                 string line;
-                StreamReader file = new StreamReader(name);
+                StreamReader file = new StreamReader("../../" + name);
                 while ((line = file.ReadLine()) != null)
                 {
                     if (line.Contains(data))
@@ -75,7 +75,7 @@ namespace WPF_BytEdit
             bool here = false;
             try
             {
-                StreamReader file_r = new StreamReader(name);
+                StreamReader file_r = new StreamReader("../../" + name);
                 while ((line = file_r.ReadLine()) != null)
                 {
                     if (!line.Contains(data)) new_line += line + "\n";
@@ -92,7 +92,7 @@ namespace WPF_BytEdit
             {
                 new_line += data + "=" + new_data + "\n";
             }
-            StreamWriter file_w = new StreamWriter(name, false);
+            StreamWriter file_w = new StreamWriter("../../" + name, false);
             file_w.WriteLine(new_line);
             file_w.Close();
         }
