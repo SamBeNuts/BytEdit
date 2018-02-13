@@ -21,7 +21,7 @@ namespace WPF_BytEdit
 
         //Configuration de la connexion à la base de données
         public static MySqlConnection connection;
-        public static string connectionString = "SERVER=127.0.0.1; DATABASE=bytedit; UID=root; PASSWORD=";
+        public static string connectionString = "SERVER=" + ReadData("db","server") + "; DATABASE=" + ReadData("db", "database") + "; UID="+ ReadData("db", "uid") + "; PASSWORD=" + ReadData("db","password");
 
         //Variable pour stocker l'id de l'utilisateur
         public static string id_;
